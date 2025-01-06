@@ -1,0 +1,7 @@
+min
+max
+minmax
+min_element => range: [a.begin() , a.end())
+max_element
+minmax_element
+clamp

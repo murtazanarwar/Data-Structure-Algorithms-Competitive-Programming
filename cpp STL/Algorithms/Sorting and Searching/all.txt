@@ -1,0 +1,7 @@
+sort
+stable_sort
+partial_sort
+partial_sort_copy
+is_sorted
+is_sorted_until
+nth_elemen

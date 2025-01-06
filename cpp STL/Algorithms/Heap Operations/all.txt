@@ -1,0 +1,6 @@
+push_heap
+pop_heap
+make_heap
+sort_heap
+is_heap
+is_heap_until

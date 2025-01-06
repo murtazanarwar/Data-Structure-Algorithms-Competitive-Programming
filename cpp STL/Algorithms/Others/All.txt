@@ -1,0 +1,10 @@
+accumulate
+inner_product
+adjacent_difference
+partial_sum
+reduce (C++17)
+exclusive_scan (C++17)
+inclusive_scan (C++17)
+transform_reduce (C++17)
+transform_exclusive_scan (C++17)
+transform_inclusive_scan
