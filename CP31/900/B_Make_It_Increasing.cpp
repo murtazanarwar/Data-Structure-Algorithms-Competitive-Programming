@@ -147,9 +147,6 @@ void solve() {
     vector<int> a(n);
     for(auto &i: a) cin>>i;
     int cnt = 0;
-    if(n == 1){
-        cout<<0<<'\n'; return;
-    }
     for(int i =  n - 1; i > 0 ; i--){
         while((a[i-1] > 0) && (a[i-1] >= a[i])){
             a[i-1] /= 2; cnt++;

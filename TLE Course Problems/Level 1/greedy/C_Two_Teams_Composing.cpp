@@ -142,18 +142,62 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void optimal() {
+        int n; cin>>n;
+    vector<int> a(n);
+    unordered_map<int, int> skill;
+    for(auto &i: a){
+        cin>>i;
+        skill[i]++;
+    }
+
+    int maxi = 0;
+    int skills = 0;
+
+    for(auto it: skill){
+        skills++;
+        maxi = max( maxi, it.second );
+    }
+
+    cout<<max(min(skills-1,maxi),min(skills,maxi-1))<<'\n';
+}
+
+void solve() {
+    int n; cin>>n;
+    vector<int> a(n);
+    unordered_map<int, int> skill;
+    for(auto &i: a){
+        cin>>i;
+        skill[i]++;
+    }
+
+    int maxi = 0;
+    int skills = 0;
+
+    for(auto it: skill){
+        skills++;
+        maxi = max( maxi, it.second );
+    }
+
+    int ans = 0;
+    if( maxi > skills ){
+       ans = skills; 
+    } else if( maxi == skills ){
+        ans = skills - 1;
+    } else {
+        ans = maxi;
+    }
+
+    cout<<ans<<'\n';
+}
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int n;
-    cin >> n;
-    int missing = 0;
-    for(int i  = 0; i < n-1; i++){
-        int j; cin>>j;
-        missing ^= j;
-        missing ^= ( i + 1 );
-    }
-    missing ^= n;
-    cout<<missing<<endl;
+    int t = 1;
+    cin >> t;
+    while (t--)
+        // solve();
+        optimal();
     return 0;
 }

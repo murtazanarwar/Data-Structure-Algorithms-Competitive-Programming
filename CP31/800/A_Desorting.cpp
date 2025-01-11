@@ -142,18 +142,60 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void optimal(){
+    int n; cin >> n;
+    vector<int> nums(n);
+    
+    int diff = 1e9;
+    bool sorted = true;
+    
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+        if (i > 0) {
+            diff = min(nums[i] - nums[i - 1], diff);
+            sorted &= nums[i] >= nums[i - 1];
+        }
+    }
+        
+    if (!sorted) {
+        cout << 0 << endl;
+        return;
+    }
+    
+    cout << diff / 2 + 1 << endl;
+}
+
+void solve() {
+    int n; cin>>n;
+    vector<int> a(n);
+    for(auto &i: a) cin>>i;
+    int mini = INT_MAX;
+    int ind = -1;
+    
+    for(int i = 0; i < n - 1; i++){
+        int diff = a[i+1] - a[i];
+        
+        if( diff < 0 ){
+            cout<<0<<'\n';
+            return;
+        }
+        
+        if( diff < mini ){
+            ind = i;
+            mini = min(mini , diff);
+        }
+    }
+
+    cout<<((a[ind+1] - a[ind]) / 2 + 1)<<'\n';
+}
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int n;
-    cin >> n;
-    int missing = 0;
-    for(int i  = 0; i < n-1; i++){
-        int j; cin>>j;
-        missing ^= j;
-        missing ^= ( i + 1 );
-    }
-    missing ^= n;
-    cout<<missing<<endl;
+    int t = 1;
+    cin >> t;
+    while (t--)
+        // solve();
+        optimal();
     return 0;
 }

@@ -142,18 +142,40 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void solve() {
+    string s, t; cin>>s>>t;
+    int a[30]; memset(a,0,sizeof(a));
+    string result = "";
+
+    for(char c: t){
+        int x = c - 'A';
+        a[x]++;
+    }
+
+    for(int i = s.length() - 1; i >= 0; i--){
+        int x = s[i] - 'A';
+        if(a[x]){
+            result += s[i];
+            a[x]--;
+        }
+    }
+
+    reverse(result.begin(), result.end());
+
+    //order check
+    if(result == t){
+        cout<<"YES"<<'\n';
+    }else{
+        cout<<"NO"<<'\n';
+    }
+}
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int n;
-    cin >> n;
-    int missing = 0;
-    for(int i  = 0; i < n-1; i++){
-        int j; cin>>j;
-        missing ^= j;
-        missing ^= ( i + 1 );
-    }
-    missing ^= n;
-    cout<<missing<<endl;
+    int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
     return 0;
 }

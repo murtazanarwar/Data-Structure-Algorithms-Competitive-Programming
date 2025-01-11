@@ -142,18 +142,32 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void solve() {
+    int n; cin>>n;
+
+    int cnt2 = 0, cnt3 = 0;
+    while( n % 2 == 0){
+        n /= 2;
+        cnt2++;
+    }
+    while( n % 3 == 0 ){
+        n /= 3;
+        cnt3++;
+    }
+
+    if( n == 1 && cnt2 <= cnt3 ){
+        cout<<(cnt3 - cnt2) + cnt3<<'\n';
+    }else{
+        cout<<-1<<'\n';
+    }
+}
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int n;
-    cin >> n;
-    int missing = 0;
-    for(int i  = 0; i < n-1; i++){
-        int j; cin>>j;
-        missing ^= j;
-        missing ^= ( i + 1 );
-    }
-    missing ^= n;
-    cout<<missing<<endl;
+    int t = 1;
+    cin >> t;
+    while (t--)
+        solve();
     return 0;
 }
