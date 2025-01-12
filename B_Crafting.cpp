@@ -142,8 +142,80 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void correct() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    vector<int> b(n);
+    for(auto &i: a) cin>>i;
+    for(auto &i: b) cin>>i;
+
+    bool possible = true;
+    for (int i = 0; i < n; ++i) {
+        if (b[i] > a[i]) {
+            int Needed = b[i] - a[i];
+
+            bool canFulfill = true;
+            for (int j = 0; j < n; ++j) {
+                if (i != j) {
+                    if (a[j] - b[j] < Needed) {
+                        cout << "NO" << endl;
+                        possible = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!possible) break;
+
+        }
+    }
+
+    if (possible) {
+        cout << "YES" << endl;
+    }
+}
+
 void solve() {
-    
+    int n; cin>>n;
+    vector<int> a(n);
+    vector<int> b(n);
+    for(auto &i: a) cin>>i;
+    for(auto &i: b) cin>>i;
+
+    ll suma = accumulate(a.begin(), a.end(), 0);
+    ll sumb = accumulate(b.begin(), b.end(), 0);
+
+    if(suma < sumb){
+        cout<<"NO"<<'\n';
+    } else if( suma == sumb ){
+        if(n == 2){
+            cout<<"YES"<<'\n';
+        }else{
+            cout<<"NO"<<'\n';
+        }
+    } else {
+        if( n == 2 ){
+            cout<<"YES"<<'\n';
+            return;
+        }
+
+        int diff = suma - sumb;
+        int qnt = n - 2;
+        if( diff % qnt == 0 ) {
+            long long excess = 0;
+            for (int i = 0; i < n; ++i) {
+                if (a[i] > b[i]) {
+                    excess += a[i] - b[i];
+                } else if (a[i] < b[i]) {
+                    excess -= b[i] - a[i];
+                }
+            }
+            cout << (excess >= 0 ? "YES\n" : "NO\n");
+        } else {
+            cout<<"NO"<<'\n';
+        }
+    }
 }
 
 signed main() {
@@ -152,6 +224,7 @@ signed main() {
     int t = 1;
     cin >> t;
     while (t--)
-        solve();
+        // solve();
+        correct();
     return 0;
 }
