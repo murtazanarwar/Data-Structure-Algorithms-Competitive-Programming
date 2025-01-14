@@ -20,7 +20,7 @@ using vvi = vector<vector<int>>;
 #define ss second
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
-const int inf = 9e18;
+const int inf = 100;
 const int mod = 1e9 + 7;
 const int NUM = 1000030;
 const int N = 10000000;
@@ -142,53 +142,26 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void optimal() {
-    int n; cin>>n;
-    vector<int> a(n);
-    unordered_map<int, int> skill;
-    for(auto &i: a){
-        cin>>i;
-        skill[i]++;
-    }
+const string subseqs[] = {"00", "25", "50", "75"};
 
-    int maxi = 0;
-    int skills = 0;
+int solve(string& s, string& t) {
 
-    for(auto it: skill){
-        skills++;
-        maxi = max( maxi, it.second );
-    }
-
-    cout<<max(min(skills-1,maxi),min(skills,maxi-1))<<'\n';
-}
-
-void solve() {
-    int n; cin>>n;
-    vector<int> a(n);
-    unordered_map<int, int> skill;
-    for(auto &i: a){
-        cin>>i;
-        skill[i]++;
-    }
-
-    int maxi = 0;
-    int skills = 0;
-
-    for(auto it: skill){
-        skills++;
-        maxi = max( maxi, it.second );
-    }
-
+    int sptr = s.length() - 1;
     int ans = 0;
-    if( maxi > skills ){
-       ans = skills; 
-    } else if( maxi == skills ){
-        ans = skills - 1;
-    } else {
-        ans = maxi;
+    while( sptr >= 0 && s[sptr] != t[1] ){
+        ans++;
+        sptr--;
     }
 
-    cout<<ans<<'\n';
+    if(sptr < 0) return inf;
+    
+    sptr--;
+    while( sptr >= 0 && s[sptr] != t[0] ){
+        ans++;
+        sptr--;
+    }
+
+    return (sptr >= 0)? ans : inf;
 }
 
 signed main() {
@@ -196,8 +169,13 @@ signed main() {
     cin.tie(0);
     int t = 1;
     cin >> t;
-    while (t--)
-        // solve();
-        optimal();
+    while (t--){
+        string s ; cin>>s;
+        int ans = inf;
+        for(auto t: subseqs){
+            ans = min(ans, solve(s,t));
+        }
+        cout<<ans<<'\n';
+    }
     return 0;
 }

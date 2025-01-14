@@ -142,53 +142,18 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void optimal() {
-    int n; cin>>n;
-    vector<int> a(n);
-    unordered_map<int, int> skill;
-    for(auto &i: a){
-        cin>>i;
-        skill[i]++;
-    }
-
-    int maxi = 0;
-    int skills = 0;
-
-    for(auto it: skill){
-        skills++;
-        maxi = max( maxi, it.second );
-    }
-
-    cout<<max(min(skills-1,maxi),min(skills,maxi-1))<<'\n';
-}
-
 void solve() {
-    int n; cin>>n;
-    vector<int> a(n);
-    unordered_map<int, int> skill;
-    for(auto &i: a){
-        cin>>i;
-        skill[i]++;
-    }
+    int n, k; cin>>n>>k;
 
-    int maxi = 0;
-    int skills = 0;
-
-    for(auto it: skill){
-        skills++;
-        maxi = max( maxi, it.second );
-    }
-
-    int ans = 0;
-    if( maxi > skills ){
-       ans = skills; 
-    } else if( maxi == skills ){
-        ans = skills - 1;
+    if( (n % 2 == 1 && k % 2 == 1) || (n % 2 == 0 && k % 2 == 0) ){
+        if( k * k <= n ){
+            cout<<"YES"<<'\n';
+        } else {
+            cout<<"NO"<<'\n';
+        }
     } else {
-        ans = maxi;
+        cout<<"NO"<<'\n';
     }
-
-    cout<<ans<<'\n';
 }
 
 signed main() {
@@ -197,7 +162,6 @@ signed main() {
     int t = 1;
     cin >> t;
     while (t--)
-        // solve();
-        optimal();
+        solve();
     return 0;
 }

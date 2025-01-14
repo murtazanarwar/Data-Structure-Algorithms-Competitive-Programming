@@ -142,53 +142,51 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void optimal() {
-    int n; cin>>n;
-    vector<int> a(n);
-    unordered_map<int, int> skill;
-    for(auto &i: a){
-        cin>>i;
-        skill[i]++;
+void efficient(){
+    int n;
+    cin >> n;
+    vector<long long> arr(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+
+    long long ans = 0;
+    for (int i = 0; i < n; ++i) {
+        long long maxi = LLONG_MIN;
+        int j = i;
+        while (j < n && ((arr[j] > 0 && arr[i] > 0) || (arr[j] < 0 && arr[i] < 0))) {
+            maxi = max(maxi, arr[j]);
+            ++j;
+        }
+        ans += maxi;
+        i = j - 1;
     }
 
-    int maxi = 0;
-    int skills = 0;
-
-    for(auto it: skill){
-        skills++;
-        maxi = max( maxi, it.second );
-    }
-
-    cout<<max(min(skills-1,maxi),min(skills,maxi-1))<<'\n';
+    cout << ans << endl;
 }
 
 void solve() {
     int n; cin>>n;
     vector<int> a(n);
-    unordered_map<int, int> skill;
-    for(auto &i: a){
-        cin>>i;
-        skill[i]++;
+    for(auto &i: a) cin>>i;
+
+    int i = 0, j = 1; int sum = 0; int prev = a[0];
+    while( i < n && j < n ){
+        if(a[i] > 0 && a[j] > 0){
+            prev = max(prev, a[j]);
+            j++;
+        } else if( a[i] < 0 && a[j] < 0){
+            prev = max(prev, a[j]);
+            j++;
+        } else {
+            sum += prev;
+            prev = a[j];
+            i = j;
+            j++;
+        }
     }
 
-    int maxi = 0;
-    int skills = 0;
+    sum += prev;
 
-    for(auto it: skill){
-        skills++;
-        maxi = max( maxi, it.second );
-    }
-
-    int ans = 0;
-    if( maxi > skills ){
-       ans = skills; 
-    } else if( maxi == skills ){
-        ans = skills - 1;
-    } else {
-        ans = maxi;
-    }
-
-    cout<<ans<<'\n';
+    cout<<sum<<'\n';
 }
 
 signed main() {
@@ -198,6 +196,6 @@ signed main() {
     cin >> t;
     while (t--)
         // solve();
-        optimal();
+        efficient();
     return 0;
 }
