@@ -11,5 +11,4 @@ int main(){
         for(ll p = 2; n % p == 0 && p <= n; p++){++cnt;}
         cout<<cnt<<'\n';
     }
-
 }
