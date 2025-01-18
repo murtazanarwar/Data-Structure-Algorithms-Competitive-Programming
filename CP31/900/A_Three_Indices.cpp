@@ -144,13 +144,16 @@ int combination(int n, int k) {
 
 void solve() {
     int n; cin>>n;
-    string ans = "";
-    for(int i = 1; i <= n; i++){
-        string ithRow; cin>>ithRow;
-        for(int j = i + 1; j <= n; j++){
-            if(ithRow[j-1] == '1') 
-        }
-    }
+    vector<int> a(n);
+	for (int i = 0; i < n; ++i) cin >> a[i];
+	for (int i = 1; i < n - 1; ++i) {
+		if (a[i] > a[i - 1] && a[i] > a[i + 1]) {
+			cout << "YES" << endl;
+			cout << i << ' ' << i + 1 << ' ' << i + 2 << endl;
+			return;
+		}
+	}
+	cout << "NO" << endl; 
 }
 
 signed main() {
