@@ -142,35 +142,25 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void solve() {
+    int cnt1 = 0, cnt0 = 0;
+    string s; cin>>s;
+    for(char c: s){
+        if(c == '1') cnt1++;
+        if(c == '0') cnt0++;
+    }
+    
+    int pairs = min(cnt0, cnt1);
+    if(pairs & 1) cout<<"DA\n";
+    else cout<<"NET\n";
+}
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    
     int t = 1;
     cin >> t;
-    while (t--){
-        int n; cin>>n;
-        vector<int> A(n);
-        map<int, int> mpp;
-        int freq = 0;
-
-        for(auto &i: A){
-            cin>>i;
-            mpp[i]++;
-            freq = max(freq, mpp[i]);
-        }
-        
-        if(n == 1){
-            cout<<0<<'\n'; continue;
-        }
-
-        int ans = 0;
-        while (freq < n) {
-            int d = min(n - freq, freq);
-            ans += 1 + d;
-            freq += d;
-        }
-        cout << ans << '\n';
-    }
+    while (t--)
+        solve();
     return 0;
 }

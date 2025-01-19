@@ -142,35 +142,30 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
+void solve() {
+    int n, k; cin >> n >> k;
+    vector<int> p(n);
+    for(int i = 0; i < n; ++i) cin >> p[i];    
+    sort(p.begin(), p.end());
+    
+    int cnt = 1, ans = 1;
+    for(int i = 1; i < n; ++i) {
+        if(p[i] - p[i - 1] > k) {
+            cnt = 1;
+        } else {
+            ++cnt;
+        }
+        ans = max(ans, cnt);
+    }
+    cout << n - ans << '\n';
+} 
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    
     int t = 1;
     cin >> t;
-    while (t--){
-        int n; cin>>n;
-        vector<int> A(n);
-        map<int, int> mpp;
-        int freq = 0;
-
-        for(auto &i: A){
-            cin>>i;
-            mpp[i]++;
-            freq = max(freq, mpp[i]);
-        }
-        
-        if(n == 1){
-            cout<<0<<'\n'; continue;
-        }
-
-        int ans = 0;
-        while (freq < n) {
-            int d = min(n - freq, freq);
-            ans += 1 + d;
-            freq += d;
-        }
-        cout << ans << '\n';
-    }
+    while (t--)
+        solve();
     return 0;
 }
