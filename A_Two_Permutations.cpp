@@ -143,17 +143,10 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n,k; cin>>n>>k;
-    vector<int> a(n);
-    bool alreadySorted = true;
-    for(int i = 0; i < n; i++){
-        cin>>a[i];
-        if( i > 0 ) alreadySorted &= ( a[i] >= a[i-1] ); 
-    }
-
-    if(alreadySorted || k > 1) cout<<"YES\n";
-    else cout<<"NO\n";
-
+    int n,a,b; cin>>n>>a>>b;
+    if(n == a && a == b) cout<<"Yes\n";
+    else if( a + b + 2 <= n ) cout<<"Yes\n";
+    else cout<<"No\n";
 }
 
 signed main() {
