@@ -147,7 +147,16 @@ void solve() {
     vector<int> a(n);
     for(auto &i: a) cin>>i;
     
+    if(a[0] == 1) a[0]++;
+    for(int i = 1; i < n; i++){
+        if(a[i] == 1) a[i]++;
+        if(a[i] % a[i-1] == 0) a[i]++;
+        cout<<a[i-1]<<" ";
+    }
+    cout<<a[n-1]<<'\n';
 }
+
+//Actually, the maximum number of operations performed by this algorithm is (1.5 * n)
 
 signed main() {
     ios_base::sync_with_stdio(false);
