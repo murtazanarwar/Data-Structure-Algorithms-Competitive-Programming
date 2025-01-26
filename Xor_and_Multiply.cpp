@@ -143,21 +143,33 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n; cin>>n;
-    vector<int> a(n);
-    for(auto &i: a) cin>>i;
+    int n, a, b; cin>>n>>a>>b;
+    int x = 0;
+    int temp_a = 0;
+    int temp_b = 0;
     
-    if(a[0] == 1) a[0]++;
-    cout<<a[0]<<'\n';
-    for(int i = 1; i < n; i++){
-        if(a[i] == 1) a[i]++;
-        if(a[i] % a[i-1] == 0) a[i]++;
-        cout<<a[i]<<" ";
+    for(int i = n - 1; i >= 0; i--){
+        if( (a & (1LL << i)) == (b & (1LL << i)) ){
+            int bit = 1 ^ (a & (1LL << i));
+            x += (bit << i);
+            temp_a += (bit << i);
+            temp_b += (bit << i);
+        } else {
+            if(temp_a < temp_b){
+                temp_a += (1LL << i);
+                if(!(a & (1LL << i))){
+                    x += (1LL << i);
+                }
+            } else {
+                temp_b += (1LL << i);
+                if(!(b & (1LL << i))){
+                    x += (1LL << i);
+                }
+            }
+        }
     }
-    
+    cout<<x<<'\n';
 }
-
-//Actually, the maximum number of operations performed by this algorithm is (1.5 * n)
 
 signed main() {
     ios_base::sync_with_stdio(false);

@@ -143,7 +143,19 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    
+    int n; cin>>n;
+    vector<int> a(n);
+    for(auto &i: a) cin>>i;
+    int cnt = 0;
+    for(int i = 0; i < n; i++){
+        if(a[i] != 0){
+            cnt++;
+            if(i > 0 && a[i-1] != 0) cnt--;
+        }
+    }
+    int ans = 2;
+    ans = min(ans, cnt);
+    cout<<ans<<'\n';
 }
 
 signed main() {
