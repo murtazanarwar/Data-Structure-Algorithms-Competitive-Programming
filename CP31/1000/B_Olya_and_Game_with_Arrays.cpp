@@ -143,31 +143,34 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n, p; cin>>n>>p;
-
-    vector<pair<int, int>> v(n);
-    for(int i = 0; i < n; i++) cin>>v[i].second;
-    for(int i = 0; i < n; i++) cin>>v[i].first;
-    v.push_back({p, n + 1});
-    sort(v.begin(), v.end());
-
-    int resident = 1;
-    int total_cost = p;
-    int idx = 0;
-    while(resident < n){
-        int cost = v[idx].first;
-        int capacity = v[idx].second;
-        int rem = n - resident;
-        if(capacity >= rem){
-            total_cost += (rem * cost);
-            resident += rem;
-        } else {
-            total_cost += ( capacity * cost );
-            resident += capacity;
-            idx++;
+    int n; cin>>n;
+    vector<vector<int>> a(n);
+    vector<pair<int,int>> v;
+    for(int i = 0; i < n; i++){
+        int m; cin>>m;
+        a[i].resize(m);
+        int firstMinima = INT_MAX, secondMinima = INT_MAX;
+        for(auto &j: a[i]){
+            cin>>j;
+            if(j <= firstMinima){
+                secondMinima = firstMinima;
+                firstMinima = j;
+            } else if(j <= secondMinima ){
+                secondMinima = j;
+            }
         }
+        v.push_back({secondMinima, firstMinima});
     }
-    cout<<total_cost<<'\n';
+
+    sort(v.begin(), v.end());
+    int sum = 0;
+    int mini = INT_MAX;
+    for(int i = 0; i < n; i++){
+        if(i > 0) sum += v[i].first;
+        mini = min(mini, v[i].second);
+    }
+    sum += mini;
+    cout<<sum<<'\n';
 }
 
 signed main() {
