@@ -142,32 +142,20 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-// struct compare {
-//     bool operator()(pair<int,int> a, pair<int,int> b){
-//         if( a.first == b.first ){
-//             return ( a.second > b.second );
-//         }
-//         return ( a.first < b.first );
-//     }
-// };
-
 void solve() {
-    int n,k; cin>>n>>k;
-    vector<int> arr(n);
+    int n, k, q; cin>>n>>k>>q;
+    vector<int> a(n);
+    for(auto &i: a) cin>>i;
+    
+    int cnt = 0, ways = 0;
     for(int i = 0; i < n; i++){
-        cin>>arr[i];
-        arr[i] = arr[i] % k;
-        if(!arr[i]) arr[i] = k;
+        if(a[i] <= q){
+            cnt++;
+        } else {
+            cnt = 0;
+        }
     }
-    vector<int> order(n);
-    iota(order.begin(), order.end(), 0);
-    stable_sort(order.begin(), order.end(), [&](int a, int b){
-        return arr[a] > arr[b];
-    });
-    for(int i = 0; i < n; i++){
-        cout<<order[i] + 1<<" ";
-    }
-    cout<<'\n';
+    cout<<ways<<'\n';
 }
 
 signed main() {
