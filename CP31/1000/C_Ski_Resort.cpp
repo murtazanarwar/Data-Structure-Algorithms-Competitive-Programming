@@ -152,9 +152,11 @@ void solve() {
         if(a[i] <= q){
             cnt++;
         } else {
+            if(cnt >= k) ways += (cnt - k + 1) * (cnt - k + 2) / 2;
             cnt = 0;
         }
     }
+    if(cnt >= k) ways += (cnt - k + 1) * (cnt - k + 2) / 2;;
     cout<<ways<<'\n';
 }
 
