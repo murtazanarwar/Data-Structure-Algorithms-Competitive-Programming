@@ -143,38 +143,26 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n, k; cin>>n>>k;
-    vector<int> a(n);
-    for(auto &i: a) cin>>i;
+    int n; cin>>n;
+    string s; cin>>s;
 
-    if( n == k ){
-        for(int i = 2; i <= n; i += 2){
-            if(a[i-1] != (i / 2)){
-                cout<<(i / 2)<<'\n';
-                return;
-            }
+    vector<int> cnt(26, 0);
+    vector<int> p(26, 0);
+
+    for(char c: s) cnt[c - 'a']++;
+    int ans = 0;
+
+    for(auto c: s){
+        cnt[c - 'a']--;
+        p[c - 'a']++;
+
+        int curr = 0;
+        for(int i = 0; i < 26; i++){
+            curr += (cnt[i] >= 1) + (p[i] >= 1);
         }
-        cout<<(n / 2) + 1<<'\n';
-        return;
+        ans = max(ans, curr);
     }
-
-    for(int x = 1; x < k; x += 2){
-        for(int j = x; j <= (n - k + x); j++){
-            if(a[j] != ( x + 1 ) / 2){
-                cout<<(( x + 1 ) / 2)<<'\n';
-                return;
-            }
-        }
-
-        if(x > 1){
-            if(a[x - 1] != ( x + 1 ) / 2){
-                cout<<(( x + 1 ) / 2)<<'\n';
-                return;
-            }
-        }
-    }
-    
-    cout<<(n / 2) + 1<<'\n';
+    cout<<ans<<'\n';
 }
 
 signed main() {
