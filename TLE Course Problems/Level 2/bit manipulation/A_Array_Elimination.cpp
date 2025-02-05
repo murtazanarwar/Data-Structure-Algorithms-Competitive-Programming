@@ -8,20 +8,34 @@ typedef long long LL;
 typedef pair<int, int> PII;
 const int MOD = 998244353;
  
-int n, a[200005], c[35];
 int gcd(int x, int y)
 {
 	return y == 0 ? x : gcd(y, x % y);
 }
 void solve()
 {
-	scanf("%d", &n);
-	rep(i, n) scanf("%d", &a[i]);
-	memset(c, 0, sizeof(c));
-	rep(i, n) rep(j, 30) if(a[i] >> j & 1) c[j] ++;
+	int n; cin>>n;
+	vector<int> a(n);
+	for(auto &i: a) cin>>i; 
+	vector<int> c(30, 0);
+
+	//frequency of each bit should be divisible by k
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j < 30; j++){
+			if((a[i] >> j) & 1) c[j]++;
+		}
+	}
+
 	int r = 0;
-	rep(i, 30) r = gcd(r, c[i]);
-	rep1(i, n) if(r % i == 0) printf("%d ", i); printf("\n");
+	for(int i = 0; i < 30; i++){
+		r = gcd(r, c[i]);
+	}
+
+	//all the divisors of r, will also divide all the frequency, and so those are the Ks
+	for(int i = 1; i <= n; i++){
+		if(r % i == 0) cout<<i<<" ";
+	}
+	cout<<'\n';
 }
  
 int main()
