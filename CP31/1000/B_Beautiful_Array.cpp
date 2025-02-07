@@ -143,23 +143,25 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n,k; cin>>n>>k;
-    vector<int> arr(n);
-    for(int i = 0; i < n; i++){
-        cin>>arr[i];
-        arr[i] = arr[i] % k;
-        if(!arr[i]) arr[i] = k;
+    //k * b <= s <= k * b + (k − 1) * n
+    int n, k, b ,s; cin>>n>>k>>b>>s;
+    vector<int> a(n);
+    a[0] = b * k;
+    s -= b * k;
+    if(s < 0) cout<<"-1\n";
+    else{
+        for(int i = 0; i < n && s > 0; i++){
+            int currAdd = min(s, k - 1);
+            a[i] += currAdd;
+            s -= currAdd;
+        }
+
+        if(s > 0) cout<<"-1\n";
+        else{
+            for(auto it: a) cout<<it<<" ";
+            cout<<'\n';
+        }
     }
-    vector<int> order(n);
-    iota(order.begin(), order.end(), 0);
-    stable_sort(order.begin(), order.end(), [&](int a, int b){
-        return arr[a] > arr[b];
-    });
-    //stable_sort maintain relative order
-    for(int i = 0; i < n; i++){
-        cout<<order[i] + 1<<" ";
-    }
-    cout<<'\n';
 }
 
 signed main() {

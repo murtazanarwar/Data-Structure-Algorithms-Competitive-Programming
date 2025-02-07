@@ -143,30 +143,26 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n,k; cin>>n>>k;
-    vector<int> arr(n);
-    for(int i = 0; i < n; i++){
-        cin>>arr[i];
-        arr[i] = arr[i] % k;
-        if(!arr[i]) arr[i] = k;
+    int b; cin>>b;
+    int a = 2;
+    const int mod = 1e9 + 7;
+    
+    long long res = 1;
+    while(b > 0){
+        if(b & 1){
+            res = res * a % mod;
+        }
+        a = a * a % mod;
+        b >>= 1;
     }
-    vector<int> order(n);
-    iota(order.begin(), order.end(), 0);
-    stable_sort(order.begin(), order.end(), [&](int a, int b){
-        return arr[a] > arr[b];
-    });
-    //stable_sort maintain relative order
-    for(int i = 0; i < n; i++){
-        cout<<order[i] + 1<<" ";
-    }
-    cout<<'\n';
+    cout<<res;
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
         solve();
     return 0;
