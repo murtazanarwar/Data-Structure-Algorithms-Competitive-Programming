@@ -143,25 +143,25 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    //k * b <= s <= k * b + (k − 1) * n
-    int n, k, b ,s; cin>>n>>k>>b>>s;
-    vector<int> a(n, 0);
-    a[0] = b * k;
-    s -= b * k;
-    if(s < 0) cout<<"-1\n";
-    else{
-        for(int i = 0; i < n && s > 0; i++){
-            int currAdd = min(s, k - 1);
-            a[i] += currAdd;
-            s -= currAdd;
-        }
-
-        if(s > 0) cout<<"-1\n";
-        else{
-            for(auto it: a) cout<<it<<" ";
-            cout<<'\n';
+    int n, x; cin>>n>>x;
+    vector<int> a(n);
+    cin>>a[0];
+    int maxi = a[0] - x, mini = a[0] + x;
+    int cnt = 0;
+    for(int i = 1; i < n; i++){
+        cin>>a[i];
+        int leftLimit = max(maxi, a[i] - x);
+        int rightLimit = min(mini, a[i] + x);
+        if(rightLimit < leftLimit){
+            cnt++;
+            maxi = a[i] - x;
+            mini = a[i] + x;
+        } else {
+            maxi = leftLimit;
+            mini = rightLimit;
         }
     }
+    cout<<cnt<<'\n';
 }
 
 signed main() {

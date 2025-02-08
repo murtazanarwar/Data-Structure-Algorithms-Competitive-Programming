@@ -142,34 +142,17 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void solve() {
-    //k * b <= s <= k * b + (k − 1) * n
-    int n, k, b ,s; cin>>n>>k>>b>>s;
-    vector<int> a(n, 0);
-    a[0] = b * k;
-    s -= b * k;
-    if(s < 0) cout<<"-1\n";
-    else{
-        for(int i = 0; i < n && s > 0; i++){
-            int currAdd = min(s, k - 1);
-            a[i] += currAdd;
-            s -= currAdd;
-        }
-
-        if(s > 0) cout<<"-1\n";
-        else{
-            for(auto it: a) cout<<it<<" ";
-            cout<<'\n';
-        }
-    }
+int solve(int n) {
+    if(n == 0) return 0;
+    return n / 5 + solve(n / 5);
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    cin >> t;
+    int n; cin>>n;
     while (t--)
-        solve();
+        cout<<solve(n);
     return 0;
 }
