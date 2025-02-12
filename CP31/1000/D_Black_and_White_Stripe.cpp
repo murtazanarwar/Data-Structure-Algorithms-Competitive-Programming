@@ -143,16 +143,21 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n; cin>>n;
-    int a = 1;
-    for(int i = 2; i * i <= n; i++){
-        if(n % i == 0){
-            a = n / i;
-            break;
+    int n, k; cin>>n>>k;
+    string s; cin>>s;
+    int blacks = 0; int mini = n;
+    int l = 0, r = 0;
+    while(r < n){
+        if(s[r] == 'B') blacks++;
+        if(r >= k){
+            if(s[l] == 'B') blacks--;
+            l++;
         }
+        int ops = (r - l + 1) - blacks;
+        if(r - l + 1 >= k) mini = min(ops, mini);
+        r++;
     }
-    
-    cout<<a<<" "<<n - a<<'\n';
+    cout<<mini<<'\n';
 }
 
 signed main() {

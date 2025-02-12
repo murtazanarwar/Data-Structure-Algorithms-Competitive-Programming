@@ -143,16 +143,16 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n; cin>>n;
-    int a = 1;
-    for(int i = 2; i * i <= n; i++){
-        if(n % i == 0){
-            a = n / i;
-            break;
-        }
+    int x, y; cin>>x>>y;
+    if(x == y) cout<<"NO\n";
+    else if( y > x ) {
+        if(y == x + 1) cout<<"YES\n";
+        else cout<<"NO\n";
+    } else {
+        int diff = (x - y);
+        if((diff + 1) % 9 == 0) cout<<"YES\n";
+        else cout<<"NO\n";
     }
-    
-    cout<<a<<" "<<n - a<<'\n';
 }
 
 signed main() {

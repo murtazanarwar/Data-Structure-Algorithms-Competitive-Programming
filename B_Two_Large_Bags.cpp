@@ -144,15 +144,24 @@ int combination(int n, int k) {
 
 void solve() {
     int n; cin>>n;
-    int a = 1;
-    for(int i = 2; i * i <= n; i++){
-        if(n % i == 0){
-            a = n / i;
-            break;
-        }
+    vector<int> a(n);
+    vector<int> freq(n + 1, 0);
+    for(auto &i: a){
+        cin>>i;
+        freq[i]++;
     }
-    
-    cout<<a<<" "<<n - a<<'\n';
+
+    int fwd = 0;
+    for(int i = n; i > 0; i--){
+        freq[i] = freq[i] - fwd;
+        if(freq[i] % 2 == 1) fwd
+
+
+    }
+
+    cout<<fwd<<" ";
+    if(fwd == 0) cout<<"Yes\n";
+    else cout<<"No\n";
 }
 
 signed main() {

@@ -143,16 +143,14 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n; cin>>n;
-    int a = 1;
-    for(int i = 2; i * i <= n; i++){
-        if(n % i == 0){
-            a = n / i;
-            break;
-        }
-    }
-    
-    cout<<a<<" "<<n - a<<'\n';
+    int n, r, b; cin>>n>>r>>b;
+    int p = r / ( b + 1 );
+    int q = r % ( b + 1 );
+
+    for(int i = 0;i < q; i++) cout<<string(p + 1,'R')<<'B';
+    for(int i = q; i < b; i++) cout<<string(p,'R')<<'B';
+    cout<<string(p,'R');
+    cout<<'\n';
 }
 
 signed main() {
