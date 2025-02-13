@@ -143,25 +143,25 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n; cin>>n;
-    vector<int> a(n);
-    vector<int> freq(n + 1, 0);
-    for(auto &i: a){
-        cin>>i;
-        freq[i]++;
+    int w, h; cin>>w>>h;
+    vector<vector<int>> nodes(4);
+    int maxi = 0;
+    for(int i = 0; i < 4; i++){
+        int k; cin>>k;
+        for(int j = 0; j < k; j++){
+            int node; cin>>node;
+            nodes[i].push_back(node);
+        }
+
+        if(i <= 1){
+            int a = nodes[i][0], b = nodes[i].back();
+            maxi = max(maxi, ((b - a) * h));
+        } else {
+            int a = nodes[i][0], b = nodes[i].back();
+            maxi = max(maxi, ((b - a) * w));
+        }
     }
-
-    int fwd = 0;
-    for(int i = n; i > 0; i--){
-        freq[i] = freq[i] - fwd;
-        if(freq[i] % 2 == 1) fwd
-
-
-    }
-
-    cout<<fwd<<" ";
-    if(fwd == 0) cout<<"Yes\n";
-    else cout<<"No\n";
+    cout<<maxi<<'\n';
 }
 
 signed main() {

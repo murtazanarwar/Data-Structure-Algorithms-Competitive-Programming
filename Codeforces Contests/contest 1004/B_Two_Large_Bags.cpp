@@ -144,21 +144,34 @@ int combination(int n, int k) {
 
 void solve() {
     int n; cin>>n;
-    int k = 1;
-    while(k <= n){
-        int total_ways = k * k * ( k * k - 1) / 2;
-        int attacking_ways = (2 * (k-1) * (k-2)) + (2 * (k-2) * (k-1));
-        int ways = total_ways - attacking_ways;
-        cout<<ways<<'\n';
-        k++;
+    map<int,int> freq;
+    set<int> st;
+
+    for(int i = 0, temp = 0; i < n; i++){
+        cin >> temp;
+        freq[temp]++; st.insert(temp);
+    }    
+
+    while(!st.empty()){
+        int mn = *st.begin();
+        if(freq[mn] == 1){
+            cout<<"No\n"; return;
+        }
+
+        freq[mn + 1] += (freq[mn] - 2);
+        
+        st.erase(mn);
+        if(freq[mn + 1]) st.insert(mn + 1);
+        freq[mn] = 0;
     }
+    cout<<"Yes\n";
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
         solve();
     return 0;
