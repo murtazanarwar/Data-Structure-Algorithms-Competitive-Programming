@@ -143,24 +143,16 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    //k * b <= s <= k * b + n * (k − 1)
-    int n, k, b ,s; cin>>n>>k>>b>>s;
-    vector<int> a(n, 0);
-    a[0] = b * k;
-    s -= b * k;
-    if(s < 0) cout<<"-1\n";
-    else{
-        for(int i = 0; i < n && s > 0; i++){
-            int currAdd = min(s, k - 1);
-            a[i] += currAdd;
-            s -= currAdd;
-        }
+    int n; cin>>n;
 
-        if(s > 0) cout<<"-1\n";
-        else{
-            for(auto it: a) cout<<it<<" ";
-            cout<<'\n';
+    for (int i = 0; i < (1 << n); i++) {
+        int gray = i ^ (i >> 1);
+
+        string code = "";
+        for (int j = n - 1; j >= 0; j--) { // Fixed condition
+            code += (gray & (1 << j)) ? '1' : '0';
         }
+        cout << code << '\n';
     }
 }
 
@@ -168,7 +160,7 @@ signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
         solve();
     return 0;
