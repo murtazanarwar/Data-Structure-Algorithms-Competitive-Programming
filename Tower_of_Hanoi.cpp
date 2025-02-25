@@ -143,29 +143,14 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n; cin>>n;
-
-    for (int i = 0; i < (1 << n); i++) {
-        int gray = i ^ (i >> 1);
-
-        string code = "";
-        for (int j = n - 1; j >= 0; j--) { // Fixed condition
-            code += (gray & (1 << j)) ? '1' : '0';
-        }
-        cout << code << '\n';
-    }
+    
 }
-
-//Generating Gray Code and Finding the Next One
-//  1. Convert 1010 (Gray code) back to binary.
-//  2. Find the next binary number.
-//  3. Convert it back to Gray code.
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
         solve();
     return 0;

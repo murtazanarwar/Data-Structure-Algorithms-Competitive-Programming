@@ -142,30 +142,38 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void solve() {
-    int n; cin>>n;
+int longestCommonSubstr(string& s1, string& s2) {
+    int n = s1.length();
+    int m = s2.length();
+    vector<int> prev(m + 1 , 0);
+    int ans = 0;
 
-    for (int i = 0; i < (1 << n); i++) {
-        int gray = i ^ (i >> 1);
-
-        string code = "";
-        for (int j = n - 1; j >= 0; j--) { // Fixed condition
-            code += (gray & (1 << j)) ? '1' : '0';
+    for(int i = 1; i <= n; i++){
+        for(int j = m; j >= 1; j--){
+            if(s1[i-1] == s2[j-1]){
+                prev[j] = 1 + prev[j-1];
+                ans = max(ans, prev[j]);
+            }else prev[j] = 0;
         }
-        cout << code << '\n';
     }
+
+    return ans;
 }
 
-//Generating Gray Code and Finding the Next One
-//  1. Convert 1010 (Gray code) back to binary.
-//  2. Find the next binary number.
-//  3. Convert it back to Gray code.
+void solve() {
+    string a, b; cin>>a>>b;
+    int n = a.length();
+    int m = b.length();
+    int len = longestCommonSubstr(a, b);
+
+    cout<< ( n + m - 2 * len )<<'\n';
+}
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
         solve();
     return 0;
