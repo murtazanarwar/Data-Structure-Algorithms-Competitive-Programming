@@ -143,7 +143,46 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    
+    int n, m; cin>>n>>m;
+    vector<vector<int>> mat(n, vector<int>(m, 0));
+    int sum = 0;
+    int mini = INT_MAX;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cin>>mat[i][j];
+            int el = abs(mat[i][j]);
+            sum += el;
+            mini = min(mini, el);
+        }
+    }
+
+    int neg = 0;
+   for(int i = 0; i < n - 1; i++){
+        for(int j = 0; j < m; j++){
+            if(mat[i][j] == 0){
+                cout<<sum<<'\n';
+                return;
+            }
+            if(mat[i][j] > 0) continue;
+            mat[i+1][j] = -mat[i+1][j];
+        }
+    }
+
+    for(int j = 0; j < m; j++){
+        if(mat[n-1][j] == 0){
+            cout<<sum<<'\n';
+            return;
+        }
+        if(mat[n-1][j] > 0) continue;
+        neg++;
+    }
+
+    if(neg % 2 == 0) cout<<sum<<'\n';
+    else {
+        sum -= 2 * mini;
+        cout<<sum<<'\n';
+    }
 }
 
 signed main() {
