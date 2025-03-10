@@ -142,34 +142,89 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void solve() {
-    int n, d; cin>>n>>d;
-    vector<int> p(n);
-    for(auto &i: p) cin>>i;
-    sort(p.begin(), p.end());
-
-    if(p[ n - 1 ] * n <= d) cout<<"0\n";
-    else if( d < p[0] ) cout<<n<<'\n';
-    else {
-        int wins = 0;
-        int l = 0, r = n - 1;
-        while(l <= r){
-            int requirement = ( d / p[r] );
-            if(r - l + 1 > requirement){
-                l += requirement;
-                r--;
-                wins++;
-            } else break;
-        }
-        cout<<wins<<'\n';
+int operationsMUL(int& start, int& end){
+    int ops = 0;
+    while(8 * start <= end){
+        start *= 8; ops++;
     }
+    while(4 * start <= end){
+        start *= 4; ops++;
+    }
+    while(2 * start <= end){
+        start *= 2; ops++;
+    }
+    return ops;
+}
+
+int getR(int num){
+    while(num % 2 == 0) num /= 2;
+    return num;
+}
+
+void solve() {
+    int a, b; cin>>a>>b;
+    if(a > b) swap(a,b);
+
+    int r_a = getR(a); //odd counter parts
+    int r_b = getR(b);
+
+    if(r_a != r_b) cout<<"-1\n";
+    else {
+        int ops = 0;
+        b /= a;
+        while(b >= 8){
+            b /= 8; ops++;
+        }
+        if(b > 1) ops++;
+        cout<<ops<<'\n';
+    }
+}
+
+void solve2() {
+    int a, b; cin>>a>>b;
+    int ops = 0;
+
+    if(a == b){
+        cout<<"0\n"; return;
+    }
+
+    if(b > a){
+        ops += operationsMUL(a,b);
+    } else {
+        ops += operationsMUL(b,a);
+    }
+
+    if(a != b) cout<<"-1\n";
+    else cout<<ops<<'\n';
+}
+
+void solve3() {
+    int a, b; cin>>a>>b;
+    int ops = 0;
+    
+    while(a != b){
+        if( ((b > a) & (b & 1)) || 
+            ((b > a) & (2 * a > b)) || 
+            ((b < a) & (a & 1)) ||
+            ((b < a) & (2 * b > a))
+        ){
+            cout<<"-1\n"; return;
+        }
+        
+        if(b > a){
+            ops += operationsMUL(a,b);
+        } else {
+            ops += operationsMUL(b,a);
+        }
+    }
+    cout<<ops<<'\n';
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
         solve();
     return 0;

@@ -142,34 +142,35 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-void solve() {
-    int n, d; cin>>n>>d;
-    vector<int> p(n);
-    for(auto &i: p) cin>>i;
-    sort(p.begin(), p.end());
-
-    if(p[ n - 1 ] * n <= d) cout<<"0\n";
-    else if( d < p[0] ) cout<<n<<'\n';
-    else {
-        int wins = 0;
-        int l = 0, r = n - 1;
-        while(l <= r){
-            int requirement = ( d / p[r] );
-            if(r - l + 1 > requirement){
-                l += requirement;
-                r--;
-                wins++;
-            } else break;
-        }
-        cout<<wins<<'\n';
+bool valid(int n){
+    int original = n;
+    while(n > 0){
+        int digit = n % 10;
+        if(digit != 0 && original % digit != 0) return false;
+        n /= 10;
     }
+    return true;
+}
+
+void solve() {
+    int M = 2520;
+    int n; cin>>n;
+    M = M - (n % M);
+
+    for(int i = 0; i < M; i++){
+        if(valid(n + i)){
+            cout<<(n + i)<<'\n';
+            return;
+        }
+    }
+    cout<<(n + M)<<'\n';
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
         solve();
     return 0;

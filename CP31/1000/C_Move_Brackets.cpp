@@ -143,33 +143,30 @@ int combination(int n, int k) {
 }
 
 void solve() {
-    int n, d; cin>>n>>d;
-    vector<int> p(n);
-    for(auto &i: p) cin>>i;
-    sort(p.begin(), p.end());
-
-    if(p[ n - 1 ] * n <= d) cout<<"0\n";
-    else if( d < p[0] ) cout<<n<<'\n';
-    else {
-        int wins = 0;
-        int l = 0, r = n - 1;
-        while(l <= r){
-            int requirement = ( d / p[r] );
-            if(r - l + 1 > requirement){
-                l += requirement;
-                r--;
-                wins++;
-            } else break;
+    int n; cin>>n;
+    string s; cin>>s;
+    int op = 0;
+    int ans = 0;
+    for(int i = 0; i < n; i++){
+        if(s[i] == '('){
+            op++;
+        } else {
+            op--;
+            if (op < 0) {
+                op = 0;
+                ++ans;
+            }
         }
-        cout<<wins<<'\n';
     }
+
+    cout<<ans<<'\n';
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
         solve();
     return 0;
