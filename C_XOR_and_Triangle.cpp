@@ -142,24 +142,19 @@ int combination(int n, int k) {
     return (p1 * p2) % mod;
 }
 
-int getMSB(int x) {
-    if (x == 0) return 0;  // Edge case: No MSB in zero
-    return 1 << (31 - __builtin_clz(x));
-}
-
 void solve() {
     int x; cin>>x;
-    for(int i = 31; i >= 0; i--){
-        if((x & (1 << i)) != 0){
-            int y = (1 << i);
-            int xr = x ^ y;
-            if(y > x - xr){
-                cout<<y<<'\n';
-                return;
+
+    for(int i = 0; i <= 30; i++){
+        for(int j = 0; j <= 30; j++){
+
+            int y = (1 << i) | (1 << j);
+            if(y < x && ((x & y) > 0) && ((x & y) < y)){
+                cout<<y<<'\n'; return;
             }
         }
     }
-    cout<<-1<<'\n';
+    cout<<"-1\n";
 }
 
 signed main() {
