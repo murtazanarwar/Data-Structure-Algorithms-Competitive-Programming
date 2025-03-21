@@ -34,8 +34,8 @@ const int N = 10000000;
 #define DEBUG(x) cerr << #x << ": " << x << '\n';
 
 // Utility functions to output "YES" or "NO"
-void yes() { cout << "YES\n"; }
-void no()  { cout << "NO\n"; }
+void yes() { cout << "Yes\n"; }
+void no()  { cout << "No\n"; }
 
 // Function to print vectors (useful for debugging)
 template <class T>
@@ -188,7 +188,19 @@ int combination(int n, int k) {
 
 // Solve function for each test case
 void solve() {
-    
+    int n, x; cin>>n>>x;
+    int u = 0;
+    for(int i = 0; i < 3; i++){
+        vector<int> st(n); cin>>st;
+        
+        for(int j = 0; j < n; j++){
+            int y = st[j];
+            if( (x | y) != x ) break;
+            u |= y;
+        }  
+    }
+    if(u == x) yes();
+    else no();
 }
 
 signed main() {

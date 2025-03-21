@@ -34,8 +34,8 @@ const int N = 10000000;
 #define DEBUG(x) cerr << #x << ": " << x << '\n';
 
 // Utility functions to output "YES" or "NO"
-void yes() { cout << "YES\n"; }
-void no()  { cout << "NO\n"; }
+void yes() { cout << "Yes\n"; }
+void no()  { cout << "No\n"; }
 
 // Function to print vectors (useful for debugging)
 template <class T>
@@ -188,17 +188,37 @@ int combination(int n, int k) {
 
 // Solve function for each test case
 void solve() {
+    int n; cin>>n;
+    vector<int> a(n), b(n);
+    cin>>a>>b;
     
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+
+    vector<int> c(n);
+    int i = 0, j = 0;
+    while(i < n){
+        while(j < n && a[i] > b[j]) j++;
+        c[i] = j;
+        i++;
+    }
+    
+    int cnt = 1;
+    for(int i = 0; i < n; i++){
+        cnt = ( cnt * (c[i] - i) ) % mod;
+    }
+    cout<<cnt<<'\n';
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    
+    initFactorial();
     int t = 1;
     cin >> t;
     // t = 1;
-    while (t--)
+    while (t--){
         solve();
+    }
     return 0;
 }
