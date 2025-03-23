@@ -188,7 +188,8 @@ int combination(int n, int k) {
 
 // Solve function for each test case
 void solve() {
-    
+    int n = 5;
+    cout<<ceil((double) n / 2.0 );
 }
 
 signed main() {
@@ -196,7 +197,7 @@ signed main() {
     cin.tie(0);
     
     int t = 1;
-    cin >> t;
+    // cin >> t;
     // t = 1;
     while (t--)
         solve();

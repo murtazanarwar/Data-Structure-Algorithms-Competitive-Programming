@@ -5,43 +5,76 @@
 #include <list>
 #include <set>
 #include <queue>
-#include <bits/stdc++.h>
+#include <bits/stdc++.h>  // Includes most standard libraries
+
+// Macro definitions and type aliases
 #define ll long long
-#define int long long
+#define int long long               // Use 64-bit integers by default
 #define pb push_back
 #define ppb pop_back
 #define mp make_pair
-using namespace std;
-using vpi = vector<pair<int, int>>;
-using pi = pair<int, int>;
-using vi = vector<int>;
-using vvi = vector<vector<int>>;
 #define ff first
 #define ss second
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
+
+using namespace std;
+using vpi = vector<pair<int, int>>;
+using pi  = pair<int, int>;
+using vi  = vector<int>;
+using vvi = vector<vector<int>>;
+
+// Constants used throughout the program
 const int inf = 9e18;
 const int mod = 1e9 + 7;
 const int NUM = 1000030;
 const int N = 10000000;
+
+// Debug macro to print variable values
 #define DEBUG(x) cerr << #x << ": " << x << '\n';
 
+// Utility functions to output "YES" or "NO"
+void yes() { cout << "Yes\n"; }
+void no()  { cout << "No\n"; }
+
+// Function to print vectors (useful for debugging)
+template <class T>
+void print_v(vector<T> &v) {
+    if (v.empty()) {
+        cout << "{ }\n";
+        return;
+    }
+    cout << "{ " << v[0];
+    for (int i = 1; i < v.size(); i++)
+        cout << ", " << v[i];
+    cout << " }\n";
+}
+
+// Overloading input and output operators for pairs and vectors
+
+// Input operator for pair
 template <typename T, typename Y>
 istream &operator>>(istream &is, pair<T, Y> &p) {
     is >> p.first >> p.second;
     return is;
 }
+
+// Output operator for pair
 template <typename T, typename Y>
 ostream &operator<<(ostream &os, pair<T, Y> p) {
     os << p.first << ' ' << p.second << ' ';
     return os;
 }
+
+// Input operator for vector
 template <typename T>
 istream &operator>>(istream &is, vector<T> &v) {
     for (auto &i : v)
         is >> i;
     return is;
 }
+
+// Output operator for vector
 template <typename T>
 ostream &operator<<(ostream &os, vector<T> v) {
     for (auto &i : v)
@@ -49,11 +82,13 @@ ostream &operator<<(ostream &os, vector<T> v) {
     return os;
 }
 
+// Global variables for sieve, prime factors, power series and factorials
 vector<int> lp, sieve;
 vector<int> pr;
 vector<int> power;
 vector<int> fact;
 
+// Precompute powers of a number modulo mod
 void initpow(int x) {
     power.resize(NUM);
     power[0] = 1;
@@ -62,6 +97,7 @@ void initpow(int x) {
     }
 }
 
+// Precompute factorials modulo mod
 void initFactorial() {
     fact.resize(NUM);
     fact[0] = 1;
@@ -70,6 +106,7 @@ void initFactorial() {
     }
 }
 
+// Compute the sieve of Eratosthenes up to NUM
 void calc_sieve() {
     sieve.resize(NUM + 1, 0);
     for (int x = 2; x <= NUM; x++) {
@@ -81,6 +118,7 @@ void calc_sieve() {
     }
 }
 
+// Precompute lowest prime factors for numbers up to N and store primes in vector 'pr'
 void primefactor() {
     lp.resize(N + 1, 0);
     for (int i = 2; i <= N; ++i) {
@@ -93,6 +131,7 @@ void primefactor() {
     }
 }
 
+// Fast exponentiation (binary exponentiation) without modulo
 int binpow(int a, int b) {
     int res = 1;
     while (b > 0) {
@@ -104,6 +143,7 @@ int binpow(int a, int b) {
     return res;
 }
 
+// Fast exponentiation (binary exponentiation) with modulo arithmetic
 int binpow(int a, int b, int mod) {
     int res = 1;
     while (b > 0) {
@@ -115,51 +155,55 @@ int binpow(int a, int b, int mod) {
     return res % mod;
 }
 
+// Compute the greatest common divisor (GCD) of two numbers using recursion
 int gcd(int a, int b) {
     if (b == 0)
         return a;
-    else
-        return gcd(b, a % b);
+    return gcd(b, a % b);
 }
 
+// Compute the least common multiple (LCM) of two numbers
 int lcm(int a, int b) {
     return ((a / gcd(a, b)) * b);
 }
 
+// Compute modular inverse using Fermat's little theorem
 int inversemod(int a, int mod) {
     return binpow(a, mod - 2, mod);
 }
 
+// Compute division modulo mod (i.e., a / b modulo c)
 int divmod(int a, int b, int c) {
     return ((a % c) * inversemod(b, c)) % c;
 }
 
+// Compute combinations nCk modulo mod using precomputed factorials
 int combination(int n, int k) {
     if (k > n)
         return 0;
     int p1 = (fact[n] * inversemod(fact[k], mod)) % mod;
-    int p2 = (1 * inversemod(fact[n - k], mod)) % mod;
+    int p2 = (inversemod(fact[n - k], mod)) % mod;
     return (p1 * p2) % mod;
 }
 
+// Solve function for each test case
 void solve() {
     int n; cin>>n;
-    string s; cin>>s;
-	for (int i = 1; i < s.size(); ++i) {
-		if (s[i - 1] > s[i]) {
-			cout<<"YES\n";
-			cout<<i<<" "<<i + 1<< '\n';
-			return ;
-		}
-	}
-    cout<<"NO\n";
+    vector<int> a(n); cin>>a;
+    int k = 0;
+    for(int i = 0; i <= n / 2; i++){
+        k = __gcd( k, abs(a[i] - a[n - i - 1]) );
+    }
+    cout<<k<<'\n';
 }
 
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
+    
     int t = 1;
-    // cin >> t;
+    cin >> t;
+    // t = 1;
     while (t--)
         solve();
     return 0;
